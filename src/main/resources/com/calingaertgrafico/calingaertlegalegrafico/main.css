@@ -1,0 +1,9 @@
+
+#output_console .content,  #output_console {
+    -fx-control-inner-background:#000000;
+    -fx-font-family: Consolas;
+    -fx-highlight-fill: #00ff00;
+    -fx-highlight-text-fill: #000000;
+    -fx-text-fill: #00ff00;
+}
+
