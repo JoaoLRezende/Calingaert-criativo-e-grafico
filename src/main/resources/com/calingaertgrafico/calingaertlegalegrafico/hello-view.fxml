@@ -18,11 +18,6 @@
 
 <AnchorPane style="-fx-background-image: url(GitHubLogo.png);" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calingaertgrafico.calingaertlegalegrafico.HelloController">
    <children>
-      <ImageView fitHeight="101.0" fitWidth="106.0" layoutY="437.0" AnchorPane.leftAnchor="770.0" AnchorPane.topAnchor="440.0">
-         <image>
-            <Image url="@../../../../../../../../Downloads/25231.png" />
-         </image>
-      </ImageView>
       <HBox>
          <children>
             <TableView prefHeight="502.0" prefWidth="266.0">
@@ -79,7 +74,7 @@
                      </VBox>
                      <AnchorPane>
                         <children>
-                           <TextArea id="output_console" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="oiedss&#10;" />
+                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="oiedss&#10;" />
                         </children>
                      </AnchorPane>
                   </children>
@@ -90,13 +85,13 @@
                         <children>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <Button layoutX="181.0" layoutY="10.0" onAction="#onHelloButtonClick" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
+                                 <Button layoutX="181.0" layoutY="10.0" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
                                     <font>
                                        <Font size="11.0" />
                                     </font>
                                  </Button>
-                                 <TextField />
-                                  <Button onAction="#onHelloButtonClick" text="Carregar" />
+                                 <TextField fx:id="textField_arquivoEntrada" />
+                                  <Button onAction="#onCarregarClick" text="Carregar" />
                               </children>
                               <VBox.margin>
                                  <Insets />
@@ -110,7 +105,7 @@
                                  <Button mnemonicParsing="false" text="Passo" />
                                  <Button mnemonicParsing="false" text="Correr" />
                                  <Button mnemonicParsing="false" text="Executar" />
-                                 <Button mnemonicParsing="false" text="Limpar" />
+                                 <Button mnemonicParsing="false" onAction="#onLimparClick" text="Limpar" />
                               </children>
                               <padding>
                                  <Insets top="10.0" />
@@ -126,5 +121,10 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </HBox>
+      <ImageView fitHeight="101.0" fitWidth="106.0" layoutY="437.0" AnchorPane.leftAnchor="770.0" AnchorPane.topAnchor="440.0">
+         <image>
+            <Image url="@GitHubLogo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
