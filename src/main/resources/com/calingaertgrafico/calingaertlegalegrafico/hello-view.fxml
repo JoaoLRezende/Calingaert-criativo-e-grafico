@@ -74,7 +74,7 @@
                      </VBox>
                      <AnchorPane>
                         <children>
-                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="oiedss&#10;" />
+                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="oiedss&#10;" wrapText="true" />
                         </children>
                      </AnchorPane>
                   </children>
@@ -85,7 +85,7 @@
                         <children>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <Button layoutX="181.0" layoutY="10.0" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
+                                 <Button layoutX="181.0" layoutY="10.0" onAction="#carregarArquivo" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
                                     <font>
                                        <Font size="11.0" />
                                     </font>
