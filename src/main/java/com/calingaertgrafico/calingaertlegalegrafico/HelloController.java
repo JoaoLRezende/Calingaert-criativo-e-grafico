@@ -1,18 +1,20 @@
 package com.calingaertgrafico.calingaertlegalegrafico;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController implements Initializable {
 
     @FXML
     private Button botao_carregar;
@@ -48,13 +50,31 @@ public class HelloController {
     private Label lbl_SP;
 
     @FXML
-    private TableView<?> tabela_memoria;
-
-    @FXML
     private TextField textField_arquivoEntrada;
 
     @FXML
     private TextArea txt_outputConsole;
+
+    @FXML
+    private TableView<PalavraDeMemoria> memoria_tabela;
+
+    @FXML
+    private TableColumn<PalavraDeMemoria, Integer> tabela_colunaPosicao;
+
+    @FXML
+    private TableColumn<?, ?> tabela_colunaValor;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Memoria memoria = new Memoria(1000);
+        HelloApplication.executor = new Executor(memoria);
+        inicializarMemoria();
+    }
+
+    void inicializarMemoria() {
+        ObservableList<PalavraDeMemoria> obervableListMemoria = FXCollections.observableArrayList(HelloApplication.executor.memoria.memoria);
+        memoria_tabela.setItems(obervableListMemoria);
+    }
 
     @FXML
     void onLimparClick(ActionEvent event) throws IOException {

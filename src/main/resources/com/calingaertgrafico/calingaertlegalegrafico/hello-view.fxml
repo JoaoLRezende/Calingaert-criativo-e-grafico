@@ -20,11 +20,14 @@
    <children>
       <HBox>
          <children>
-            <TableView prefHeight="502.0" prefWidth="266.0">
+            <TableView fx:id="memoria_tabela" prefHeight="502.0" prefWidth="266.0">
               <columns>
-                <TableColumn editable="false" prefWidth="113.0" sortable="false" text="Posiçao" />
-                <TableColumn editable="false" prefWidth="131.0" sortable="false" text="Valor" />
+                <TableColumn fx:id="tabela_colunaPosicao" editable="false" prefWidth="113.0" sortable="false" text="Posiçao" />
+                <TableColumn fx:id="tabela_colunaValor" editable="false" prefWidth="131.0" sortable="false" text="Valor" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <VBox alignment="CENTER" prefHeight="502.0" prefWidth="234.0" spacing="20.0">
                 <padding>
