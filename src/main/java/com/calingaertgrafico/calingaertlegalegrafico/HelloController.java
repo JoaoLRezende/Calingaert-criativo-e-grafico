@@ -72,6 +72,8 @@ public class HelloController implements Initializable {
     }
 
     void inicializarMemoria() {
+        tabela_colunaPosicao.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        tabela_colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         ObservableList<PalavraDeMemoria> obervableListMemoria = FXCollections.observableArrayList(HelloApplication.executor.memoria.memoria);
         memoria_tabela.setItems(obervableListMemoria);
     }
