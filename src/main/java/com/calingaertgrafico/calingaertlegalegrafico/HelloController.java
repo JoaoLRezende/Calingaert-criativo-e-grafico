@@ -68,10 +68,10 @@ public class HelloController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Memoria memoria = new Memoria(1000);
         HelloApplication.executor = new Executor(memoria);
-        inicializarMemoria();
+        atualizarTabelaDeMemoria();
     }
 
-    void inicializarMemoria() {
+    void atualizarTabelaDeMemoria() {
         tabela_colunaPosicao.setCellValueFactory(new PropertyValueFactory<>("endereco"));
         tabela_colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         ObservableList<PalavraDeMemoria> obervableListMemoria = FXCollections.observableArrayList(HelloApplication.executor.memoria.memoria);
@@ -88,10 +88,11 @@ public class HelloController implements Initializable {
     @FXML
     void onCarregarClick(ActionEvent event) throws IOException {
         HelloApplication.carregarPrograma(textField_arquivoEntrada.getText(), txt_outputConsole);
+        atualizarTabelaDeMemoria();
     }
 
     @FXML
-    void carregarArquivo(ActionEvent event){
+    void selecionarArquivo(ActionEvent event){
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivo Montado", "*.HPX"));
         File f = fc.showOpenDialog(null);
@@ -101,5 +102,12 @@ public class HelloController implements Initializable {
         }
     }
 
+    @FXML
+    void onExecutarClick(ActionEvent event) {
+        while (!HelloApplication.executor.terminou) {
+            HelloApplication.executor.step();
+        }
+        atualizarTabelaDeMemoria();
+    }
 
-}
+    }

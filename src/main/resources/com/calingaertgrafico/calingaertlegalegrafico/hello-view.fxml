@@ -88,7 +88,7 @@
                         <children>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <Button layoutX="181.0" layoutY="10.0" onAction="#carregarArquivo" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
+                                 <Button layoutX="181.0" layoutY="10.0" onAction="#selecionarArquivo" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
                                     <font>
                                        <Font size="11.0" />
                                     </font>
@@ -107,7 +107,7 @@
                               <children>
                                  <Button mnemonicParsing="false" text="Passo" />
                                  <Button mnemonicParsing="false" text="Correr" />
-                                 <Button mnemonicParsing="false" text="Executar" />
+                                 <Button mnemonicParsing="false" onAction="#onExecutarClick" text="Executar" />
                                  <Button mnemonicParsing="false" onAction="#onLimparClick" text="Limpar" />
                               </children>
                               <padding>

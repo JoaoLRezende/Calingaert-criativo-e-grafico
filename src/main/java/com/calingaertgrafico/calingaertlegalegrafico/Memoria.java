@@ -24,7 +24,7 @@ public class Memoria {
         set((short)2, (short) STACK_LIMIT);
     }
 
-    Memoria(int numPalavras, File arquivoObjeto) throws IOException{
+    Memoria(int numPalavras, File arquivoObjeto) throws IOException {
         this(numPalavras);
 
         FileInputStream arquivoObjetoStream = new FileInputStream(arquivoObjeto);

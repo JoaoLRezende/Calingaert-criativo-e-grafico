@@ -28,7 +28,6 @@ public class HelloApplication extends Application {
     }
 
     static void carregarPrograma(String nomeArquivoExecutavel, TextArea txt_outputConsole) throws IOException {
-        System.out.println("método carregarPrograma chamado");
         Memoria memoria = new Memoria(1000, new File(nomeArquivoExecutavel));
         executor = new Executor(memoria);
         txt_outputConsole.setText(txt_outputConsole.getText() + "Programa carregado: " + nomeArquivoExecutavel + "\n");
