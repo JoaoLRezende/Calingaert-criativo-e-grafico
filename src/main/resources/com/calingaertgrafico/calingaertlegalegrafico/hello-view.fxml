@@ -98,7 +98,7 @@
                            </HBox>
                            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="405.0" spacing="30.0">
                               <children>
-                                 <Button mnemonicParsing="false" text="Passo" />
+                                 <Button mnemonicParsing="false" onAction="#onPassoClick" text="Passo" />
                                  <Button mnemonicParsing="false" text="Correr" />
                                  <Button mnemonicParsing="false" onAction="#onExecutarClick" text="Executar" />
                                  <Button mnemonicParsing="false" onAction="#onLimparClick" text="Limpar" />

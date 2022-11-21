@@ -113,7 +113,19 @@ public class HelloController implements Initializable {
         while (!HelloApplication.executor.terminou) {
             HelloApplication.executor.step();
         }
+        txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
+        txt_outputConsole.setScrollTop(Double.MAX_VALUE);
         atualizarInterface();
     }
 
+    @FXML
+    void onPassoClick(ActionEvent event) {
+        if(!HelloApplication.executor.terminou) {
+            HelloApplication.executor.step();
+        } else {
+            txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
+        }
+        atualizarInterface();
     }
+
+}
