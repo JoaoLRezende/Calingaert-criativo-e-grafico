@@ -41,9 +41,6 @@ public class HelloController implements Initializable {
     private Label lbl_PC;
 
     @FXML
-    private Label lbl_RE;
-
-    @FXML
     private Label lbl_RI;
 
     @FXML
@@ -64,31 +61,40 @@ public class HelloController implements Initializable {
     @FXML
     private TableColumn<?, ?> tabela_colunaValor;
 
+    private URL url;
+    private ResourceBundle rb;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.url = url;
+        this.rb = rb;
         Memoria memoria = new Memoria(1000);
         HelloApplication.executor = new Executor(memoria);
-        atualizarTabelaDeMemoria();
-    }
-
-    void atualizarTabelaDeMemoria() {
-        tabela_colunaPosicao.setCellValueFactory(new PropertyValueFactory<>("endereco"));
-        tabela_colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
-        ObservableList<PalavraDeMemoria> obervableListMemoria = FXCollections.observableArrayList(HelloApplication.executor.memoria.memoria);
-        memoria_tabela.setItems(obervableListMemoria);
+        atualizarInterface();
     }
 
     @FXML
     void onLimparClick(ActionEvent event) throws IOException {
-        txt_outputConsole.setText(txt_outputConsole.getText() + "carregando arquivo\n");
-        System.out.println("carregando arquivo");
-        HelloApplication.carregarPrograma(textField_arquivoEntrada.getText(), txt_outputConsole);
+        initialize(url, rb);
+        txt_outputConsole.setText("Limpo.\n");
+    }
+
+    void atualizarInterface() {
+        tabela_colunaPosicao.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        tabela_colunaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        ObservableList<PalavraDeMemoria> obervableListMemoria = FXCollections.observableArrayList(HelloApplication.executor.memoria.memoria);
+        memoria_tabela.setItems(obervableListMemoria);
+
+        // atualizar registradores
+        lbl_ACC.setText(String.valueOf(HelloApplication.executor.acumulador));
+        lbl_PC.setText(String.valueOf(HelloApplication.executor.contadorDePrograma));
+        lbl_RI.setText(String.valueOf(HelloApplication.executor.registradorDeInstrucao));
+        lbl_SP.setText(String.valueOf(HelloApplication.executor.ponteiroDaPilha));
     }
 
     @FXML
     void onCarregarClick(ActionEvent event) throws IOException {
         HelloApplication.carregarPrograma(textField_arquivoEntrada.getText(), txt_outputConsole);
-        atualizarTabelaDeMemoria();
+        atualizarInterface();
     }
 
     @FXML
@@ -107,7 +113,7 @@ public class HelloController implements Initializable {
         while (!HelloApplication.executor.terminou) {
             HelloApplication.executor.step();
         }
-        atualizarTabelaDeMemoria();
+        atualizarInterface();
     }
 
     }

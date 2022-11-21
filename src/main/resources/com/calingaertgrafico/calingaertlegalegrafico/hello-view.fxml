@@ -66,18 +66,11 @@
                                  <Label fx:id="lbl_RI" layoutX="70.0" layoutY="4.0" text="48729479274243" />
                               </children>
                            </AnchorPane>
-                           <AnchorPane layoutX="10.0" layoutY="131.0" prefHeight="35.0" prefWidth="200.0">
-                              <children>
-                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41a3ff" height="24.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="0.0" />
-                                 <Label layoutX="6.0" layoutY="4.0" text="RE" />
-                                 <Label fx:id="lbl_RE" layoutX="70.0" layoutY="4.0" text="48729479274243" />
-                              </children>
-                           </AnchorPane>
                         </children>
                      </VBox>
                      <AnchorPane>
                         <children>
-                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="oiedss&#10;" wrapText="true" />
+                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="Inicializando Calingaert 3000. beep boop." wrapText="true" />
                         </children>
                      </AnchorPane>
                   </children>
