@@ -22,9 +22,9 @@ class Executor {
         this.memoria = memoria;
     }
 
-    void step() {
+    Short step() {
         if (aguardandoEntrada) {
-            return;
+            return null;
         }
 
         registradorDeInstrucao = memoria.get(contadorDePrograma++);
@@ -198,11 +198,25 @@ class Executor {
                 aguardandoEntrada = true;
                 break;
 
+            case Opcodes.WRITE:
+                short saida;
+                if ((registradorDeInstrucao & Bitmasks.ENDERECAMENTO_IMEDIATO) > 0) {
+                    saida = memoria.get(contadorDePrograma++);
+                } else if ((registradorDeInstrucao & Bitmasks.ENDERECAMENTO_INDIRETO_OP1) > 0) {
+                    short enderecoDoEndereco = memoria.get(contadorDePrograma++);
+                    short endereco = memoria.get(enderecoDoEndereco);
+                    saida = memoria.get(endereco);
+                } else { // endereçamento direto
+                    short endereco = memoria.get(contadorDePrograma++);
+                    saida = memoria.get(endereco);
+                }
+                return saida;
+
             default:
                 System.out.println("Instrução não implementada.");
                 System.exit(1);
         }
-
+        return null;
     }
 
     void passarEntrada(short entrada) {

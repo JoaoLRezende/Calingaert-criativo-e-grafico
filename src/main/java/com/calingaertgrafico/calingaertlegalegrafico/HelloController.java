@@ -124,7 +124,10 @@ public class HelloController implements Initializable {
     @FXML
     void onPassoClick(ActionEvent event) {
         if(!HelloApplication.executor.terminou) {
-            HelloApplication.executor.step();
+            Short retorno = HelloApplication.executor.step();
+            if (retorno != null) {
+                txt_outputConsole.appendText("\nSaída: " + retorno + "\n");
+            }
         } else {
             txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
         }
