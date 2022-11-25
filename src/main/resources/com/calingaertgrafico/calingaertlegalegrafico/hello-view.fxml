@@ -70,7 +70,7 @@
                      </VBox>
                      <AnchorPane>
                         <children>
-                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="280.0" prefWidth="266.0" stylesheets="@main.css" text="Inicializando Calingaert 3000. beep boop." wrapText="true" />
+                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="280.0" prefWidth="266.0" stylesheets="@main.css" wrapText="true" />
                         </children>
                      </AnchorPane>
                   </children>

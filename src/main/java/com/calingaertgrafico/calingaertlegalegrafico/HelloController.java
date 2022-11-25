@@ -72,6 +72,7 @@ public class HelloController implements Initializable {
         this.rb = rb;
         Memoria memoria = new Memoria(1000);
         HelloApplication.executor = new Executor(memoria);
+        txt_outputConsole.appendText("Inicializando Calingaert 3000. beep boop.\n");
         atualizarInterface();
     }
 
