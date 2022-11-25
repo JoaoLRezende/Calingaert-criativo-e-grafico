@@ -14,11 +14,19 @@ class Executor {
 
     boolean terminou = false;
 
+    boolean aguardandoEntrada = false;
+    // endereço no qual deve ser guardada a próxima entrada
+    short destinoEntrada = 0;
+
     Executor(Memoria memoria) {
         this.memoria = memoria;
     }
 
     void step() {
+        if (aguardandoEntrada) {
+            return;
+        }
+
         registradorDeInstrucao = memoria.get(contadorDePrograma++);
 
         switch (registradorDeInstrucao & 0b1111) {
@@ -179,11 +187,31 @@ class Executor {
                 terminou = true;
                 break;
 
+
+            case Opcodes.READ:
+                if ((registradorDeInstrucao & Bitmasks.ENDERECAMENTO_INDIRETO_OP1) > 0) {
+                    short enderecoDoEndereco = memoria.get(contadorDePrograma++);
+                    destinoEntrada = memoria.get(enderecoDoEndereco);
+                } else { // endereçamento direto
+                    destinoEntrada = memoria.get(contadorDePrograma++);
+                }
+                aguardandoEntrada = true;
+                break;
+
             default:
                 System.out.println("Instrução não implementada.");
                 System.exit(1);
         }
 
+    }
+
+    void passarEntrada(short entrada) {
+        if (!aguardandoEntrada) {
+            return;
+        }
+
+        memoria.set(destinoEntrada, entrada);
+        aguardandoEntrada = false;
     }
 
     private void checkStackSize() {

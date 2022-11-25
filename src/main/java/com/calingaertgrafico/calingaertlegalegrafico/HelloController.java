@@ -50,6 +50,9 @@ public class HelloController implements Initializable {
     private TextField textField_arquivoEntrada;
 
     @FXML
+    private TextField textField_entrada;
+
+    @FXML
     private TextArea txt_outputConsole;
 
     @FXML
@@ -126,6 +129,11 @@ public class HelloController implements Initializable {
             txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
         }
         atualizarInterface();
+    }
+
+    @FXML
+    void onReadClick(ActionEvent event) {
+        HelloApplication.executor.passarEntrada(Short.parseShort(textField_entrada.getText()));
     }
 
 }

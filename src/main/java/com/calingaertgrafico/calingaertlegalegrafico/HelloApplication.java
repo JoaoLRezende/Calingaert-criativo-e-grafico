@@ -19,8 +19,6 @@ public class HelloApplication extends Application {
         stage.setTitle("Calingaert 3000");
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     public static void main(String[] args) {
@@ -32,4 +30,6 @@ public class HelloApplication extends Application {
         executor = new Executor(memoria);
         txt_outputConsole.appendText("Programa carregado: " + nomeArquivoExecutavel + "\n");
     }
+
+
 }

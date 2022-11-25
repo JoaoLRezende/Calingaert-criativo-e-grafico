@@ -79,6 +79,15 @@
                   <children>
                      <VBox alignment="CENTER" prefHeight="148.0" prefWidth="533.0">
                         <children>
+                           <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                              <children>
+                                 <TextField fx:id="textField_entrada" prefHeight="24.0" prefWidth="83.0" />
+                                 <Button onAction="#onReadClick" text="READ" />
+                              </children>
+                              <padding>
+                                 <Insets top="30.0" />
+                              </padding>
+                           </HBox>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
                                  <Button layoutX="181.0" layoutY="10.0" onAction="#selecionarArquivo" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">

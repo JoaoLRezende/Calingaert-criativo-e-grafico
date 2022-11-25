@@ -1,7 +1,7 @@
             EXTR     glob_var   * rótulo externo, definido em outro módulo
             EXTDEF   add_var   * rótulo definido aqui, visível externamente
 *
-add_var     ADD glob_var
-            ADD outra  
+add_var     READ input
+            ADD input
             RET
-outra       CONST @54   * outra variável
+input       SPACE

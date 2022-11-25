@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class Controlador {
     public static void main (String[] args) throws IOException {
 //       gambiarra para depurar o código no PC do João.
-         String[] args1 = { "/home/joaolrezende/IdeaProjects/Calingaert-legal-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/chamada_add_var.txt",
-                            "/home/joaolrezende/IdeaProjects/Calingaert-legal-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/definição_add_var.txt",
-                            "/home/joaolrezende/IdeaProjects/Calingaert-legal-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/definição_glob_var.txt" };
+         String[] args1 = { "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/chamada_add_var.txt",
+                            "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/definição_add_var.txt",
+                            "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/definição_glob_var.txt" };
          args = args1;
 
         ArrayList<String> módulosMontados = new ArrayList<>();

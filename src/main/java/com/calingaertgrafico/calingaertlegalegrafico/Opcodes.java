@@ -15,6 +15,9 @@ public class Opcodes {
     public static final short SUB = 6;
     public static final short LOAD = 3;
 
+    public static final short READ = 12;
+
+    public static final short WRITE = 8;
 }
 
    
