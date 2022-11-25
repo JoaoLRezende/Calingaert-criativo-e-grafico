@@ -123,6 +123,11 @@ public class HelloController implements Initializable {
 
     @FXML
     void onPassoClick(ActionEvent event) {
+        if (HelloApplication.executor.aguardandoEntrada) {
+            txt_outputConsole.appendText("Aguardando entrada.\n");
+            return;
+        }
+
         if(!HelloApplication.executor.terminou) {
             Short retorno = HelloApplication.executor.step();
             if (retorno != null) {
@@ -136,7 +141,14 @@ public class HelloController implements Initializable {
 
     @FXML
     void onReadClick(ActionEvent event) {
+        if (!HelloApplication.executor.aguardandoEntrada) {
+            txt_outputConsole.appendText("Não perguntei.\n");
+            return;
+        }
+
         HelloApplication.executor.passarEntrada(Short.parseShort(textField_entrada.getText()));
+        txt_outputConsole.appendText("Entrou: " + Short.parseShort(textField_entrada.getText()) + "\n");
+
     }
 
 }
