@@ -31,5 +31,4 @@ public class HelloApplication extends Application {
         txt_outputConsole.appendText("Programa carregado: " + nomeArquivoExecutavel + "\n");
     }
 
-
 }

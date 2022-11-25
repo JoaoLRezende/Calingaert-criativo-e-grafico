@@ -113,16 +113,27 @@ public class HelloController implements Initializable {
 
     @FXML
     void onExecutarClick(ActionEvent event) {
-        while (!HelloApplication.executor.terminou) {
-            HelloApplication.executor.step();
+        while (true) {
+            if (HelloApplication.executor.aguardandoEntrada) {
+                txt_outputConsole.appendText("Aguardando entrada.\n");
+                atualizarInterface();
+                return;
+            }
+            if (HelloApplication.executor.terminou) {
+                txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
+                atualizarInterface();
+                return;
+            }
+            darPasso();
         }
-        txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
-        txt_outputConsole.setScrollTop(Double.MAX_VALUE);
-        atualizarInterface();
     }
 
     @FXML
     void onPassoClick(ActionEvent event) {
+        darPasso();
+    }
+
+    void darPasso() {
         if (HelloApplication.executor.aguardandoEntrada) {
             txt_outputConsole.appendText("Aguardando entrada.\n");
             return;

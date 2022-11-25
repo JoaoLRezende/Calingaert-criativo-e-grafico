@@ -35,7 +35,7 @@
                 </padding>
                <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="200.0" prefWidth="530.0" spacing="30.0">
                   <children>
-                     <VBox prefHeight="200.0" prefWidth="165.0">
+                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="165.0">
                         <children>
                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registradores" />
                            <AnchorPane prefHeight="35.0" prefWidth="200.0">
@@ -70,7 +70,7 @@
                      </VBox>
                      <AnchorPane>
                         <children>
-                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" text="Inicializando Calingaert 3000. beep boop." wrapText="true" />
+                           <TextArea id="output_console" fx:id="txt_outputConsole" prefHeight="280.0" prefWidth="266.0" stylesheets="@main.css" text="Inicializando Calingaert 3000. beep boop." wrapText="true" />
                         </children>
                      </AnchorPane>
                   </children>
