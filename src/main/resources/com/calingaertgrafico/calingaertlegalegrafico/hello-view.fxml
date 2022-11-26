@@ -90,13 +90,11 @@
                            </HBox>
                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
-                                 <Button layoutX="181.0" layoutY="10.0" onAction="#selecionarArquivo" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivo">
+                                 <Button layoutX="181.0" layoutY="10.0" onAction="#selecionarArquivo" prefHeight="22.0" prefWidth="133.0" text="Selecionar arquivos">
                                     <font>
                                        <Font size="11.0" />
                                     </font>
                                  </Button>
-                                 <TextField fx:id="textField_arquivoEntrada" />
-                                  <Button onAction="#onCarregarClick" text="Carregar" />
                               </children>
                               <VBox.margin>
                                  <Insets />

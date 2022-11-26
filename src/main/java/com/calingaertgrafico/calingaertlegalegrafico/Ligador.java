@@ -15,7 +15,7 @@ public class Ligador {
     short contadorDePosição = Executor.STACK_LIMIT;
     HashMap<String, Simbolo> tabelaDeSímbolosGlobal = new HashMap<>();
 
-    public Ligador(String[] arquivosDeEntrada) throws IOException {
+    public Ligador(String[] arquivosDeEntrada) throws IOException, UndefinedSymbolException {
         short[] endereçosBaseDosMódulos = new short[arquivosDeEntrada.length];
 
         // primeiro passo: preencher tabela de símbolos globais
@@ -69,6 +69,9 @@ public class Ligador {
             while (arquivoObjetoStream.available() > 0) {
                 short palavra = lerShort(arquivoObjetoStream);
                 if (mapaDeUsos.containsKey(palavrasJáLidasDesteMódulo)) {
+                    if (tabelaDeSímbolosGlobal.get(mapaDeUsos.get(palavrasJáLidasDesteMódulo)) == null) {
+                        throw new UndefinedSymbolException(mapaDeUsos.get(palavrasJáLidasDesteMódulo));
+                    }
                     escreverShort(streamSaída,
                             tabelaDeSímbolosGlobal.get(mapaDeUsos.get(palavrasJáLidasDesteMódulo)).endereco);
                 } else if (mapaDeRelocação.get(palavrasJáLidasDesteMódulo)) {
@@ -111,10 +114,8 @@ public class Ligador {
         return mapa;
     }
 
-    public static void main(String[] args) throws IOException {
-        String[] arquivosDeEntrada = { "exemplos/chamada_add_var.OBJ",
-                "exemplos/definição_add_var.OBJ",
-                "exemplos/definição_glob_var.OBJ" };
+    public static void main(String[] args) throws IOException, UndefinedSymbolException {
+        String[] arquivosDeEntrada = { "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/main.OBJ" };
         new Ligador(arquivosDeEntrada);
     }
 }

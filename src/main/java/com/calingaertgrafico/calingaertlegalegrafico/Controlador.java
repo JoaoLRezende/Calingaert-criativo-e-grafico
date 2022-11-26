@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controlador {
-    public static void main (String[] args) throws IOException {
+    public static void main (String[] args) throws IOException, UndefinedSymbolException {
 //       gambiarra para depurar o código no PC do João.
-         String[] args1 = { "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/chamada_add_var.txt",
+         String[] args1 = { "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/chamada_add_var.asm",
                             "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/definição_add_var.txt",
                             "/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/definição_glob_var.txt" };
          args = args1;
@@ -20,7 +20,7 @@ public class Controlador {
             montador.executar();
             módulosMontados.add(arg.replace(arg.substring(arg.indexOf(".")), ".OBJ"));
         }
-        
+
         new Ligador(módulosMontados.toArray(new String[0]));
         Memoria memoria = new Memoria(1000, new File(args[0].replace(args[0].substring(args[0].indexOf(".")), ".HPX")));
         Executor executor = new Executor(memoria);

@@ -14,8 +14,11 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -110,20 +113,43 @@ public class HelloController implements Initializable {
     }
 
     @FXML
-    void onCarregarClick(ActionEvent event) throws IOException {
-        HelloApplication.carregarPrograma(textField_arquivoEntrada.getText(), txt_outputConsole);
-        atualizarInterface();
-    }
-
-    @FXML
-    void selecionarArquivo(ActionEvent event){
+    void selecionarArquivo(ActionEvent event) throws IOException {
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivo Montado", "*.HPX"));
-        File f = fc.showOpenDialog(null);
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter(".asm", "*.asm"));
+        List<File> modulos = fc.showOpenMultipleDialog(null);
 
-        if (f != null){
-            textField_arquivoEntrada.setText(f.getAbsolutePath());
+
+        ArrayList<String> módulosMontados = new ArrayList<>();
+        for (File modulo : modulos) {
+            String caminhoDoModulo = modulo.getAbsolutePath();
+            ProcessadorDeMacros.executar(caminhoDoModulo, caminhoDoModulo + ".macroprocessado");
+            Montador montador = new Montador(caminhoDoModulo + ".macroprocessado");
+            montador.executar();
+            módulosMontados.add(caminhoDoModulo.replace(caminhoDoModulo.substring(caminhoDoModulo.indexOf(".")), ".OBJ"));
         }
+        try {
+            new Ligador(módulosMontados.toArray(new String[0]));
+        } catch (UndefinedSymbolException e) {
+            txt_outputConsole.appendText("Erro: " + e + "\n");
+            return;
+        }
+        // pegar caminho do módulo principal
+        String caminhoModuloPrincipal = null;
+        for (String modulo : módulosMontados) {
+            if (modulo.endsWith("main.OBJ")) {
+                caminhoModuloPrincipal = modulo;
+                break;
+            }
+        }
+        if (caminhoModuloPrincipal == null) {
+            txt_outputConsole.appendText("Erro: não há módulo main.asm. Um dos módulos entrados deve ter nome módulo \"main.asm\".\n");
+        }
+
+        String arquivoExecutavel = caminhoModuloPrincipal.replace(caminhoModuloPrincipal.substring(caminhoModuloPrincipal.indexOf(".")), ".HPX");
+        txt_outputConsole.appendText(módulosMontados.size() + " módulos carregados.\n");
+
+        HelloApplication.carregarPrograma(arquivoExecutavel, txt_outputConsole);
+        atualizarInterface();
     }
 
     @FXML
@@ -210,12 +236,12 @@ public class HelloController implements Initializable {
             return;
         }
 
+        HelloApplication.executor.passarEntrada(Short.parseShort(textField_entrada.getText()));
+        txt_outputConsole.appendText("Entrou: " + Short.parseShort(textField_entrada.getText()) + "\n");
         textField_entrada.setText("");
         textField_entrada.setEditable(false);
         textField_entrada.setDisable(true);
         botao_read.setDisable(true);
-        HelloApplication.executor.passarEntrada(Short.parseShort(textField_entrada.getText()));
-        txt_outputConsole.appendText("Entrou: " + Short.parseShort(textField_entrada.getText()) + "\n");
         switch (ultimoModoDeExecucao) {
             case PASSO -> onPassoClick(event);
             case EXECUTAR -> onExecutarClick(event);

@@ -336,7 +336,7 @@ public class Montador {
     }
 
     public static void main(String[] args) {
-        Montador montador = new Montador("exemplos/chamada_add_var.txt");
+        Montador montador = new Montador("/home/joaolrezende/IdeaProjects/Calingaert-criativo-e-grafico/src/main/java/com/calingaertgrafico/calingaertlegalegrafico/exemplos/main.asm");
         montador.executar();
         System.out.println("Tabela de símbolos: "   + montador.tabelaDeSimbolos.toString());
         System.out.println("Tabela de definições: " + montador.tabelaDeDefinicoes.toString());
