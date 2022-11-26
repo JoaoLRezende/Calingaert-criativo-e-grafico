@@ -1,13 +1,17 @@
 package com.calingaertgrafico.calingaertlegalegrafico;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +34,9 @@ public class HelloController implements Initializable {
 
     @FXML
     private Button botao_passo;
+
+    @FXML
+    private Button botao_read;
 
     @FXML
     private Button botao_selecionarArquivo;
@@ -64,6 +71,9 @@ public class HelloController implements Initializable {
     @FXML
     private TableColumn<?, ?> tabela_colunaValor;
 
+    enum ModoDeExecucao { PASSO, CORRER, EXECUTAR };
+    ModoDeExecucao ultimoModoDeExecucao = ModoDeExecucao.PASSO;
+
     private URL url;
     private ResourceBundle rb;
     @Override
@@ -73,6 +83,9 @@ public class HelloController implements Initializable {
         Memoria memoria = new Memoria(1000);
         HelloApplication.executor = new Executor(memoria);
         txt_outputConsole.appendText("Inicializando Calingaert 3000. beep boop.\n");
+        textField_entrada.setEditable(false);
+        textField_entrada.setDisable(true);
+        botao_read.setDisable(true);
         atualizarInterface();
     }
 
@@ -80,6 +93,7 @@ public class HelloController implements Initializable {
     void onLimparClick(ActionEvent event) throws IOException {
         initialize(url, rb);
         txt_outputConsole.setText("Limpo.\n");
+        textField_entrada.setText("");
     }
 
     void atualizarInterface() {
@@ -114,6 +128,7 @@ public class HelloController implements Initializable {
 
     @FXML
     void onExecutarClick(ActionEvent event) {
+        ultimoModoDeExecucao = ModoDeExecucao.EXECUTAR;
         while (true) {
             if (HelloApplication.executor.aguardandoEntrada) {
                 txt_outputConsole.appendText("Aguardando entrada.\n");
@@ -129,25 +144,62 @@ public class HelloController implements Initializable {
         }
     }
 
+    boolean correndo = false;
+    Timeline corredorAutomático;
+    @FXML
+    void onCorrerClick(ActionEvent event) {
+        if (!correndo) {
+            corredorAutomático = new Timeline(
+                    new KeyFrame(Duration.seconds(0.3),
+                            new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent event) {
+                                    darPasso();
+                                    if (HelloApplication.executor.aguardandoEntrada || HelloApplication.executor.terminou) {
+                                        corredorAutomático.stop();
+                                        correndo = false;
+                                        botao_correr.setText("Correr");
+                                    }
+                                }
+                            }));
+            corredorAutomático.setCycleCount(Timeline.INDEFINITE);
+            corredorAutomático.play();
+            correndo = true;
+            botao_correr.setText("Pausar");
+            ultimoModoDeExecucao = ModoDeExecucao.CORRER;
+        } else if (correndo) {
+            corredorAutomático.stop();
+            correndo = false;
+            botao_correr.setText("Correr");
+        }
+    }
+
     @FXML
     void onPassoClick(ActionEvent event) {
+        ultimoModoDeExecucao = ModoDeExecucao.PASSO;
         darPasso();
     }
 
     void darPasso() {
-        if (HelloApplication.executor.aguardandoEntrada) {
-            txt_outputConsole.appendText("Aguardando entrada.\n");
-            return;
-        }
-
         if(!HelloApplication.executor.terminou) {
             Short retorno = HelloApplication.executor.step();
             if (retorno != null) {
                 txt_outputConsole.appendText("\nSaída: " + retorno + "\n");
             }
-        } else {
+        }
+
+        if (HelloApplication.executor.terminou) {
             txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
         }
+
+        if (HelloApplication.executor.aguardandoEntrada) {
+            txt_outputConsole.appendText("Aguardando entrada.\n");
+            textField_entrada.setEditable(true);
+            textField_entrada.setDisable(false);
+            botao_read.setDisable(false);
+            return;
+        }
+
         atualizarInterface();
     }
 
@@ -158,9 +210,17 @@ public class HelloController implements Initializable {
             return;
         }
 
+        textField_entrada.setText("");
+        textField_entrada.setEditable(false);
+        textField_entrada.setDisable(true);
+        botao_read.setDisable(true);
         HelloApplication.executor.passarEntrada(Short.parseShort(textField_entrada.getText()));
         txt_outputConsole.appendText("Entrou: " + Short.parseShort(textField_entrada.getText()) + "\n");
-
+        switch (ultimoModoDeExecucao) {
+            case PASSO -> onPassoClick(event);
+            case EXECUTAR -> onExecutarClick(event);
+            case CORRER -> onCorrerClick(event);
+        }
     }
 
 }

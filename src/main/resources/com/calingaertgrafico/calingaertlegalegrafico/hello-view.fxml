@@ -82,7 +82,7 @@
                            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                               <children>
                                  <TextField fx:id="textField_entrada" prefHeight="24.0" prefWidth="83.0" />
-                                 <Button onAction="#onReadClick" text="READ" />
+                                 <Button fx:id="botao_read" onAction="#onReadClick" text="READ" />
                               </children>
                               <padding>
                                  <Insets top="30.0" />
@@ -108,7 +108,7 @@
                            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="405.0" spacing="30.0">
                               <children>
                                  <Button mnemonicParsing="false" onAction="#onPassoClick" text="Passo" />
-                                 <Button mnemonicParsing="false" text="Correr" />
+                                 <Button fx:id="botao_correr" mnemonicParsing="false" onAction="#onCorrerClick" text="Correr" />
                                  <Button mnemonicParsing="false" onAction="#onExecutarClick" text="Executar" />
                                  <Button mnemonicParsing="false" onAction="#onLimparClick" text="Limpar" />
                               </children>
