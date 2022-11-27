@@ -132,7 +132,6 @@ public class HelloController implements Initializable {
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter(".asm", "*.asm"));
         List<File> modulos = fc.showOpenMultipleDialog(null);
 
-
         ArrayList<String> módulosMontados = new ArrayList<>();
         for (File modulo : modulos) {
             String caminhoDoModulo = modulo.getAbsolutePath();
@@ -142,6 +141,12 @@ public class HelloController implements Initializable {
             módulosMontados.add(caminhoDoModulo.replace(caminhoDoModulo.substring(caminhoDoModulo.indexOf(".")), ".OBJ"));
         }
         try {
+            // TODO: o primeiro módulo passado para o ligador é onde a execução vai ser iniciada. Esse módulo deveria
+            // ser o módulo main. Então, nós devemos garantir que o módulo cujo caminho termina com "main.OBJ" seja passado
+            // como o primeiro argumento para o ligador aqui. Nós já fizemos uma parte desse trabalho abaixo, identificando
+            // o módulo principal e guardando-o na variável caminhoModuloPrincipal, mas esquecemos de fazer isto.
+            // Talvez dê para usar o método módulosMontados.set para fazer um swap, mandando o módulo main para o início
+            // da lista antes de ela ser passada para o ligador.
             new Ligador(módulosMontados.toArray(new String[0]));
         } catch (UndefinedSymbolException e) {
             txt_outputConsole.appendText("Erro: " + e + "\n");
