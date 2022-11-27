@@ -156,7 +156,7 @@ public class HelloController implements Initializable {
             }
         }
         if (caminhoModuloPrincipal == null) {
-            txt_outputConsole.appendText("Erro: não há módulo main.asm. Um dos módulos entrados deve ter nome módulo \"main.asm\".\n");
+            txt_outputConsole.appendText("Erro: não há módulo main.asm. Um dos módulos entrados deve ter nome \"main.asm\".\n");
         }
 
         String arquivoExecutavel = caminhoModuloPrincipal.replace(caminhoModuloPrincipal.substring(caminhoModuloPrincipal.indexOf(".")), ".HPX");
