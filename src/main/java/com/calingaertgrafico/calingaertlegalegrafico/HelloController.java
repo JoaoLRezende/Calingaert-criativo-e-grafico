@@ -140,25 +140,31 @@ public class HelloController implements Initializable {
             montador.executar();
             módulosMontados.add(caminhoDoModulo.replace(caminhoDoModulo.substring(caminhoDoModulo.indexOf(".")), ".OBJ"));
         }
+
+
+
+        /* O módulo main é o módulo no qual a execução deve ser iniciada. A execução é iniciada no primeiro módulo
+         * passado como argumento para o ligador. Então, garanta que o módulo main é o primeiro elemento de
+         * módulosMontados. (Esse é o arquivo objeto relocável cujo caminho termina com "main.OBJ".) Também guarde
+         * o caminho desse módulo principal, para uso posterior. */
+        String caminhoModuloPrincipal = null;
+        for (int i = 0; i < módulosMontados.size(); i++) {
+            if (módulosMontados.get(i).endsWith("main.OBJ")) {
+                caminhoModuloPrincipal = módulosMontados.get(i);
+
+                // swap this module with the one at index 0
+                módulosMontados.set(i, módulosMontados.get(0));
+                módulosMontados.set(0, caminhoModuloPrincipal);
+
+                break;
+            }
+        }
+
         try {
-            // TODO: o primeiro módulo passado para o ligador é onde a execução vai ser iniciada. Esse módulo deveria
-            // ser o módulo main. Então, nós devemos garantir que o módulo cujo caminho termina com "main.OBJ" seja passado
-            // como o primeiro argumento para o ligador aqui. Nós já fizemos uma parte desse trabalho abaixo, identificando
-            // o módulo principal e guardando-o na variável caminhoModuloPrincipal, mas esquecemos de fazer isto.
-            // Talvez dê para usar o método módulosMontados.set para fazer um swap, mandando o módulo main para o início
-            // da lista antes de ela ser passada para o ligador.
             new Ligador(módulosMontados.toArray(new String[0]));
         } catch (UndefinedSymbolException e) {
             txt_outputConsole.appendText("Erro: " + e + "\n");
             return;
-        }
-        // pegar caminho do módulo principal
-        String caminhoModuloPrincipal = null;
-        for (String modulo : módulosMontados) {
-            if (modulo.endsWith("main.OBJ")) {
-                caminhoModuloPrincipal = modulo;
-                break;
-            }
         }
         if (caminhoModuloPrincipal == null) {
             txt_outputConsole.appendText("Erro: não há módulo main.asm. Um dos módulos entrados deve ter nome \"main.asm\".\n");
