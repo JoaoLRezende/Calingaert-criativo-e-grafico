@@ -182,12 +182,10 @@ public class HelloController implements Initializable {
         ultimoModoDeExecucao = ModoDeExecucao.EXECUTAR;
         while (true) {
             if (HelloApplication.executor.aguardandoEntrada) {
-                txt_outputConsole.appendText("Aguardando entrada.\n");
                 atualizarInterface();
                 return;
             }
             if (HelloApplication.executor.terminou) {
-                txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
                 atualizarInterface();
                 return;
             }
@@ -240,7 +238,7 @@ public class HelloController implements Initializable {
         }
 
         if (HelloApplication.executor.terminou) {
-            txt_outputConsole.appendText("\nExecução terminada com sucesso.\n");
+            txt_outputConsole.appendText("Execução terminada com sucesso.\n");
         }
 
         if (HelloApplication.executor.aguardandoEntrada) {
