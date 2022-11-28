@@ -98,7 +98,7 @@ public class Ligador {
         short num2 = (short) num;
         try {
             stream.write((byte) (num2 >> 8));
-            stream.write((byte) num2);
+            stream.write(num2);
         } catch (IOException e) {
             System.out.println("Ligador: erro em escrever arquivo objeto.");
             System.exit(1);

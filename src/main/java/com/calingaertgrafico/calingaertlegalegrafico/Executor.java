@@ -212,6 +212,17 @@ class Executor {
                 }
                 return saida;
 
+            case Opcodes.STORE:
+                short enderecoDestino;
+                if ((registradorDeInstrucao & Bitmasks.ENDERECAMENTO_INDIRETO_OP1) > 0) {
+                    short enderecoDoEndereco = memoria.get(contadorDePrograma++);
+                    enderecoDestino = memoria.get(enderecoDoEndereco);
+                } else { // endereçamento direto
+                    enderecoDestino = memoria.get(contadorDePrograma++);
+                }
+                memoria.set(enderecoDestino, (short) acumulador);
+                break;
+
             default:
                 System.out.println("Instrução não implementada.");
                 System.exit(1);

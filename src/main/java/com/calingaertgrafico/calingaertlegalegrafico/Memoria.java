@@ -49,7 +49,7 @@ public class Memoria {
         short num;
         num = (byte) stream.read();
         num <<= 8;
-        num += (byte) stream.read();
+        num += stream.read();
         return num;
     }
 

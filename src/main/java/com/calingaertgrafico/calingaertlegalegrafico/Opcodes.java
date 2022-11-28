@@ -18,6 +18,8 @@ public class Opcodes {
     public static final short READ = 12;
 
     public static final short WRITE = 8;
+
+    public static final short STORE = 7;
 }
 
    
